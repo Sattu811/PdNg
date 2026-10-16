@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AURA | Luxury Hotels & Resorts Worldwide</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              gold: '#c5a880',
+              goldHover: '#b5976e',
+              goldLight: '#fbf8f3',
+              dark: '#0f172a',
+              darkCard: '#1e293b'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-stone-50 text-slate-800 antialiased selection:bg-amber-100 selection:text-amber-900 min-h-screen flex flex-col">
+
+  <!-- ================= TOP NOTIFICATION / PROMO BAR ================= -->
+  <div class="bg-slate-900 text-stone-300 text-xs py-2 px-4 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
+      <div class="flex items-center gap-2">
+        <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold bg-amber-400/20 text-amber-300 border border-amber-400/30">
+          PROMO
+        </span>
+        <span>Use code <strong class="text-amber-300 font-bold">WELCOME10</strong> for 10% off your first luxury stay!</span>
+      </div>
+      <div class="flex items-center gap-5 text-xs text-stone-400">
+        <span class="flex items-center gap-1 hover:text-white cursor-pointer"><i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-400"></i> Best Rate Guarantee</span>
+        <span class="flex items-center gap-1 hover:text-white cursor-pointer"><i data-lucide="clock" class="w-3.5 h-3.5 text-amber-400"></i> 24/7 VIP Concierge</span>
+        <div class="flex items-center gap-1">
+          <i data-lucide="globe" class="w-3.5 h-3.5"></i>
+          <select id="currency-select" class="bg-transparent text-stone-200 border-none text-xs focus:ring-0 cursor-pointer">
+            <option value="USD" class="bg-slate-900 text-white">USD ($)</option>
+            <option value="EUR" class="bg-slate-900 text-white">EUR (€)</option>
+            <option value="GBP" class="bg-slate-900 text-white">GBP (£)</option>
+            <option value="INR" class="bg-slate-900 text-white">INR (₹)</option>
+            <option value="JPY" class="bg-slate-900 text-white">JPY (¥)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= HEADER / NAVBAR ================= -->
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-stone-200 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Logo -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-11 h-11 rounded-full bg-slate-900 flex items-center justify-center text-amber-300 shadow-md group-hover:scale-105 transition-transform duration-300">
+          <i data-lucide="sparkles" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <span class="font-brand text-2xl tracking-[0.25em] font-bold text-slate-900 block leading-tight">AURA</span>
+          <span class="text-[9px] tracking-[0.35em] text-amber-800 uppercase block font-semibold">Hotels & Resorts</span>
+        </div>
+      </a>
+
+      <!-- Center Links (Desktop) -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
+        <a href="#stays-section" class="hover:text-amber-800 transition-colors">Explore Stays</a>
+        <a href="#destinations-section" class="hover:text-amber-800 transition-colors">Destinations</a>
+        <a href="#perks-section" class="hover:text-amber-800 transition-colors">Member Perks</a>
+        <a href="#about-us-section" class="hover:text-amber-800 transition-colors">About Us</a>
+        <a href="#testimonials-section" class="hover:text-amber-800 transition-colors">Guest Stories</a>
+      </nav>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-3">
+        
+        <!-- Wishlist Button -->
+        <button id="open-wishlist-btn" class="relative p-2.5 rounded-full hover:bg-stone-100 text-slate-700 transition-colors" title="My Wishlist">
+          <i data-lucide="heart" class="w-5 h-5"></i>
+          <span id="wishlist-badge" class="absolute top-1 right-1 w-4 h-4 rounded-full bg-rose-500 text-white text-[10px] font-bold flex items-center justify-center hidden">0</span>
+        </button>
+
+        <!-- My Bookings Button -->
+        <button id="open-bookings-btn" class="flex items-center gap-2 px-4 py-2.5 rounded-full border border-stone-300 hover:border-slate-800 text-slate-800 text-sm font-medium transition-all shadow-sm">
+          <i data-lucide="calendar" class="w-4 h-4 text-amber-700"></i>
+          <span>My Bookings</span>
+          <span id="bookings-badge" class="px-1.5 py-0.2 rounded-full bg-slate-900 text-white text-[10px] font-bold hidden">0</span>
+        </button>
+
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-grow">
+    
+    <!-- ================= HERO SECTION ================= -->
+    <section class="relative min-h-[580px] lg:min-h-[640px] flex items-center justify-center text-white overflow-hidden pb-16 pt-12">
+      <!-- Background Image with Overlay -->
+      <div class="absolute inset-0 z-0">
+        <img 
+          src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=2000&q=80" 
+          alt="Luxury Resort Background" 
+          class="w-full h-full object-cover object-center filter brightness-[0.68]"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/60"></div>
+      </div>
+
+      <div class="relative z-10 max-w-5xl mx-auto px-4 text-center">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-amber-200 text-xs uppercase tracking-widest font-semibold mb-6">
+          <i data-lucide="crown" class="w-3.5 h-3.5 text-amber-300"></i> Curated Sanctuary Collection
+        </div>
+
+        <h1 class="font-serif-luxury text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white mb-6 leading-tight">
+          Exceptional Stays in the World's Most <span class="italic text-amber-200 font-normal">Extraordinary</span> Places
+        </h1>
+        
+        <p class="max-w-2xl mx-auto text-base sm:text-lg text-stone-200 font-light mb-10 leading-relaxed">
+          From overwater villas in the Maldives to private chalets overlooking the Matterhorn, reserve hand-inspected 5-star sanctuaries with exclusive member rates.
+        </p>
+
+        <!-- ================= FLOATING SEARCH CONSOLE ================= -->
+        <div class="glass-panel p-4 sm:p-5 rounded-3xl shadow-2xl text-slate-800 text-left max-w-4xl mx-auto border border-white/80">
+          <form id="search-form" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 items-center">
+            
+            <!-- Destination Field -->
+            <div class="relative p-3 rounded-2xl bg-white/80 border border-stone-200 hover:border-amber-500 focus-within:border-amber-600 transition-colors">
+              <label class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                <i data-lucide="map-pin" class="w-3.5 h-3.5 text-amber-700"></i> Destination
+              </label>
+              <input 
+                type="text" 
+                id="search-destination" 
+                placeholder="Where to? (e.g. Paris, Bali)" 
+                class="w-full text-sm font-semibold text-slate-900 bg-transparent outline-none placeholder:font-normal placeholder:text-stone-400"
+                autocomplete="off"
+              />
+            </div>
+
+            <!-- Check-in Date -->
+            <div class="relative p-3 rounded-2xl bg-white/80 border border-stone-200 hover:border-amber-500 focus-within:border-amber-600 transition-colors">
+              <label class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                <i data-lucide="calendar" class="w-3.5 h-3.5 text-amber-700"></i> Check-in
+              </label>
+              <input 
+                type="date" 
+                id="search-checkin" 
+                class="w-full text-sm font-semibold text-slate-900 bg-transparent outline-none cursor-pointer"
+              />
+            </div>
+
+            <!-- Check-out Date -->
+            <div class="relative p-3 rounded-2xl bg-white/80 border border-stone-200 hover:border-amber-500 focus-within:border-amber-600 transition-colors">
+              <label class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                <i data-lucide="calendar-check" class="w-3.5 h-3.5 text-amber-700"></i> Check-out
+              </label>
+              <input 
+                type="date" 
+                id="search-checkout" 
+                class="w-full text-sm font-semibold text-slate-900 bg-transparent outline-none cursor-pointer"
+              />
+            </div>
+
+            <!-- Guests & Rooms + Submit -->
+            <div class="flex flex-col sm:flex-row gap-2 items-stretch">
+              
+              <div class="flex-1 relative p-3 rounded-2xl bg-white/80 border border-stone-200 hover:border-amber-500 focus-within:border-amber-600 transition-colors">
+                <label class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                  <i data-lucide="users" class="w-3.5 h-3.5 text-amber-700"></i> Guests
+                </label>
+                <select id="search-guests" class="w-full text-sm font-semibold text-slate-900 bg-transparent outline-none cursor-pointer">
+                  <option value="1">1 Guest</option>
+                  <option value="2" selected>2 Guests</option>
+                  <option value="3">3 Guests</option>
+                  <option value="4">4 Guests</option>
+                  <option value="5">5+ Guests</option>
+                </select>
+              </div>
+
+              <!-- Submit Button -->
+              <button 
+                type="submit" 
+                class="bg-slate-900 hover:bg-slate-800 text-amber-300 font-semibold px-6 py-4 rounded-2xl flex items-center justify-center gap-2 transition-all shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98]"
+              >
+                <i data-lucide="search" class="w-5 h-5"></i>
+                <span class="sm:hidden lg:inline">Search</span>
+              </button>
+
+            </div>
+
+          </form>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= POPULAR DESTINATIONS BAR ================= -->
+    <section id="destinations-section" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 relative z-20">
+      <div class="bg-white rounded-2xl p-4 shadow-xl border border-stone-100 flex items-center gap-4 overflow-x-auto no-scrollbar">
+        <span class="text-xs font-bold uppercase tracking-wider text-slate-400 whitespace-nowrap pl-2 flex items-center gap-1.5">
+          <i data-lucide="compass" class="w-4 h-4 text-amber-700"></i> Trending:
+        </span>
+        <div id="destinations-chips" class="flex items-center gap-2 flex-nowrap">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= MAIN HOTEL LISTINGS SECTION ================= -->
+    <section id="stays-section" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+      
+      <!-- Section Header -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+        <div>
+          <span class="text-xs font-bold tracking-widest uppercase text-amber-800 block mb-1">Hand-Selected Escapes</span>
+          <h2 class="font-serif-luxury text-3xl sm:text-4xl font-bold text-slate-900">Featured Sanctuary Stays</h2>
+          <p id="results-count-text" class="text-slate-500 text-sm mt-1">Showing all 12 properties worldwide</p>
+        </div>
+
+        <!-- Sorting and Filters Trigger (Mobile) -->
+        <div class="flex items-center gap-3 self-start md:self-auto">
+          <!-- Sort dropdown -->
+          <div class="flex items-center gap-2 bg-white px-3 py-2 rounded-xl border border-stone-200 text-sm">
+            <span class="text-xs text-slate-400 font-medium">Sort by:</span>
+            <select id="sort-select" class="bg-transparent text-sm font-semibold text-slate-800 outline-none cursor-pointer">
+              <option value="featured">Editor's Recommended</option>
+              <option value="price-asc">Price: Low to High</option>
+              <option value="price-desc">Price: High to Low</option>
+              <option value="rating-desc">Guest Rating: Highest</option>
+              <option value="reviews-desc">Most Reviewed</option>
+            </select>
+          </div>
+
+          <!-- Reset Filter Button -->
+          <button id="reset-all-filters-btn" class="text-xs text-amber-800 hover:text-amber-900 font-semibold px-3 py-2 rounded-xl hover:bg-amber-50 transition-colors hidden">
+            Clear Filters
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Layout: Filters Sidebar + Listings Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">
+        
+        <!-- ================= FILTER SIDEBAR ================= -->
+        <aside class="lg:col-span-1 bg-white p-6 rounded-3xl border border-stone-200 shadow-sm space-y-6">
+          
+          <div class="flex items-center justify-between pb-4 border-b border-stone-100">
+            <h3 class="font-bold text-slate-900 flex items-center gap-2 text-base">
+              <i data-lucide="sliders-horizontal" class="w-4 h-4 text-amber-700"></i> Refine Search
+            </h3>
+            <button id="sidebar-reset-btn" class="text-xs text-slate-500 hover:text-amber-800 font-medium">
+              Reset
+            </button>
+          </div>
+
+          <!-- Price Range Filter -->
+          <div>
+            <div class="flex justify-between items-center mb-2">
+              <label class="text-xs font-bold text-slate-700 uppercase tracking-wider">Max Price / Night</label>
+              <span id="price-slider-label" class="text-sm font-bold text-amber-800">$1,000</span>
+            </div>
+            <input 
+              type="range" 
+              id="price-range-slider" 
+              min="200" 
+              max="1000" 
+              step="25" 
+              value="1000" 
+              class="w-full cursor-pointer accent-amber-600"
+            />
+            <div class="flex justify-between text-[11px] text-slate-400 mt-1">
+              <span>$200</span>
+              <span>$1,000+</span>
+            </div>
+          </div>
+
+          <!-- Category / Property Type -->
+          <div class="pt-4 border-t border-stone-100">
+            <label class="text-xs font-bold text-slate-700 uppercase tracking-wider block mb-3">Property Style</label>
+            <div class="space-y-2.5 text-sm" id="category-filters">
+              <label class="flex items-center gap-2.5 cursor-pointer text-slate-600 hover:text-slate-900">
+                <input type="checkbox" value="Luxury Resort" class="category-checkbox rounded text-amber-700 focus:ring-amber-500 w-4 h-4" />
+                <span>Luxury Resort</span>
+              </label>
+              <label class="flex items-center gap-2.5 cursor-pointer text-slate-600 hover:text-slate-900">
+                <input type="checkbox" value="Boutique Hotel" class="category-checkbox rounded text-amber-700 focus:ring-amber-500 w-4 h-4" />
+                <span>Boutique Hotel</span>
+              </label>
+              <label class="flex items-center gap-2.5 cursor-pointer text-slate-600 hover:text-slate-900">
+                <input type="checkbox" value="Beachfront Villa" class="category-checkbox rounded text-amber-700 focus:ring-amber-500 w-4 h-4" />
+                <span>Beachfront Villa</span>
+              </label>
+              <label class="flex items-center gap-2.5 cursor-pointer text-slate-600 hover:text-slate-900">
+                <input type="checkbox" value="Mountain Chalet" class="category-checkbox rounded text-amber-700 focus:ring-amber-500 w-4 h-4" />
+                <span>Mountain Chalet</span>
+              </label>
+              <label class="flex items-center gap-2.5 cursor-pointer text-slate-600 hover:text-slate-900">
+                <input type="checkbox" value="City Suite" class="category-checkbox rounded text-amber-700 focus:ring-amber-500 w-4 h-4" />
+                <span>City Suite</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Star Rating Filter -->
+          <div class="pt-4 border-t border-stone-100">
+            <label class="text-xs font-bold text-slate-700 uppercase tracking-wider block mb-3">Minimum Rating</label>
+            <div class="flex flex-wrap gap-2" id="rating-filters">
+              <button type="button" data-rating="0" class="rating-filter-pill px-3 py-1.5 rounded-full text-xs font-semibold bg-slate-900 text-white transition-colors">Any</button>
+              <button type="button" data-rating="4.9" class="rating-filter-pill px-3 py-1.5 rounded-full text-xs font-semibold bg-stone-100 text-slate-700 hover:bg-stone-200 transition-colors">4.9+ ★</button>
+              <button type="button" data-rating="4.95" class="rating-filter-pill px-3 py-1.5 rounded-full text-xs font-semibold bg-stone-100 text-slate-700 hover:bg-stone-200 transition-colors">4.95+ ★</button>
+            </div>
+          </div>
+
+          <!-- Amenity Filters -->
+          <div class="pt-4 border-t border-stone-100">
+            <label class="text-xs font-bold text-slate-700 uppercase tracking-wider block mb-3">Key Amenities</label>
+            <div class="space-y-2.5 text-sm" id="amenity-filters">
+              <label class="flex items-center gap-2.5 cursor-pointer text-slate-600 hover:text-slate-900">
+                <input type="checkbox" value="Free Wi-Fi" class="amenity-checkbox rounded text-amber-700 focus:ring-amber-500 w-4 h-4" />
+                <span>Complimentary Wi-Fi</span>
+              </label>
+              <label class="flex items-center gap-2.5 cursor-pointer text-slate-600 hover:text-slate-900">
+                <input type="checkbox" value="Pool" class="amenity-checkbox rounded text-amber-700 focus:ring-amber-500 w-4 h-4" />
+                <span>Infinity / Heated Pool</span>
+              </label>
+              <label class="flex items-center gap-2.5 cursor-pointer text-slate-600 hover:text-slate-900">
+                <input type="checkbox" value="Spa" class="amenity-checkbox rounded text-amber-700 focus:ring-amber-500 w-4 h-4" />
+                <span>Luxury Spa & Wellness</span>
+              </label>
+              <label class="flex items-center gap-2.5 cursor-pointer text-slate-600 hover:text-slate-900">
+                <input type="checkbox" value="Dining" class="amenity-checkbox rounded text-amber-700 focus:ring-amber-500 w-4 h-4" />
+                <span>Michelin / Fine Dining</span>
+              </label>
+              <label class="flex items-center gap-2.5 cursor-pointer text-slate-600 hover:text-slate-900">
+                <input type="checkbox" value="Ocean" class="amenity-checkbox rounded text-amber-700 focus:ring-amber-500 w-4 h-4" />
+                <span>Ocean / Water View</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Booking Perks Callout -->
+          <div class="p-4 rounded-2xl bg-amber-50/70 border border-amber-200/60 text-xs text-amber-950 space-y-2">
+            <div class="font-bold flex items-center gap-1.5 text-amber-900">
+              <i data-lucide="gift" class="w-4 h-4 text-amber-700"></i> Direct Booking Privileges
+            </div>
+            <p class="text-amber-800 leading-relaxed">All reservations made directly on AURA include guaranteed late checkout, complimentary breakfast, and room upgrade upon availability.</p>
+          </div>
+
+        </aside>
+
+        <!-- ================= HOTEL CARDS GRID ================= -->
+        <div class="lg:col-span-3">
+          
+          <div id="hotels-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+            <!-- Dynamically populated by app.js -->
+          </div>
+
+          <!-- Empty State -->
+          <div id="no-results-view" class="hidden text-center py-16 px-4 bg-white rounded-3xl border border-stone-200">
+            <div class="w-16 h-16 rounded-full bg-stone-100 flex items-center justify-center mx-auto text-stone-400 mb-4">
+              <i data-lucide="compass" class="w-8 h-8"></i>
+            </div>
+            <h3 class="text-lg font-bold text-slate-800 mb-1">No Sanctuaries Match Your Criteria</h3>
+            <p class="text-slate-500 text-sm max-w-md mx-auto mb-6">Try adjusting your filters, expanding your price range, or clearing your destination search.</p>
+            <button id="empty-reset-btn" class="px-5 py-2.5 rounded-full bg-slate-900 text-white text-sm font-semibold hover:bg-slate-800 transition-colors">
+              Reset All Filters
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= PERKS & TRUST SECTION ================= -->
+    <section id="perks-section" class="bg-slate-900 text-white py-20 border-t border-b border-slate-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <span class="text-xs font-bold uppercase tracking-widest text-amber-400 block mb-2">The Aura Standard</span>
+          <h2 class="font-serif-luxury text-3xl sm:text-4xl font-bold tracking-tight">Hospitality Refined to Perfection</h2>
+          <p class="text-stone-400 text-base mt-4 leading-relaxed">Every property in our portfolio has passed an exhaustive 150-point quality audit, guaranteeing an exquisite stay from arrival to departure.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          
+          <div class="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-amber-400/30 transition-all group">
+            <div class="w-12 h-12 rounded-xl bg-amber-400/10 text-amber-300 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+              <i data-lucide="award" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">Verified 5-Star Standards</h3>
+            <p class="text-sm text-stone-400 leading-relaxed">Inspected in person for culinary excellence, bedding comfort, bespoke design, and staff warmth.</p>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-amber-400/30 transition-all group">
+            <div class="w-12 h-12 rounded-xl bg-amber-400/10 text-amber-300 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+              <i data-lucide="shield-check" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">Best Rate Guarantee</h3>
+            <p class="text-sm text-stone-400 leading-relaxed">Found a lower rate elsewhere within 24 hours? We match the price and offer a $100 resort credit.</p>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-amber-400/30 transition-all group">
+            <div class="w-12 h-12 rounded-xl bg-amber-400/10 text-amber-300 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+              <i data-lucide="refresh-cw" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">Complimentary Flexibility</h3>
+            <p class="text-sm text-stone-400 leading-relaxed">Free cancellation up to 48 hours prior to arrival on eligible flexible rate reservations.</p>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-amber-400/30 transition-all group">
+            <div class="w-12 h-12 rounded-xl bg-amber-400/10 text-amber-300 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+              <i data-lucide="concierge-bell" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">VIP Chauffeur & Butler</h3>
+            <p class="text-sm text-stone-400 leading-relaxed">Seamless airport transfers, private yacht reservations, and custom itinerary arrangements on demand.</p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= GUEST STORIES / TESTIMONIALS ================= -->
+    <section id="testimonials-section" class="py-20 bg-stone-100">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-widest text-amber-800 block mb-2">Unfiltered Reviews</span>
+            <h2 class="font-serif-luxury text-3xl sm:text-4xl font-bold text-slate-900">Voices of Our Discerning Guests</h2>
+          </div>
+          <div class="mt-4 md:mt-0 flex items-center gap-2 text-sm text-slate-600 font-medium">
+            <div class="flex text-amber-400">
+              <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+            </div>
+            <span><strong>4.96 / 5.0</strong> overall rating based on 4,200+ global verified stays</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          
+          <div class="bg-white p-8 rounded-3xl shadow-sm border border-stone-200 flex flex-col justify-between">
+            <div>
+              <div class="flex text-amber-400 mb-4">
+                <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+              </div>
+              <p class="text-slate-700 italic text-sm leading-relaxed mb-6">
+                "Our stay at Azure Palms in the Maldives was hands down the most breathtaking vacation of our lives. Waking up to sharks and rays swimming beneath our bedroom floor was otherworldly."
+              </p>
+            </div>
+            <div class="flex items-center gap-3 pt-4 border-t border-stone-100">
+              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="Guest" class="w-10 h-10 rounded-full object-cover" />
+              <div>
+                <h4 class="font-bold text-sm text-slate-900">Dr. Helena Vance</h4>
+                <p class="text-xs text-slate-400">Stayed at Azure Palms, Maldives</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white p-8 rounded-3xl shadow-sm border border-stone-200 flex flex-col justify-between">
+            <div>
+              <div class="flex text-amber-400 mb-4">
+                <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+              </div>
+              <p class="text-slate-700 italic text-sm leading-relaxed mb-6">
+                "Booking through AURA was silky smooth. When our flight into Paris was delayed, the concierge had rearranged our private pickup and dinner booking before we even touched down."
+              </p>
+            </div>
+            <div class="flex items-center gap-3 pt-4 border-t border-stone-100">
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80" alt="Guest" class="w-10 h-10 rounded-full object-cover" />
+              <div>
+                <h4 class="font-bold text-sm text-slate-900">Julian Moreau</h4>
+                <p class="text-xs text-slate-400">Stayed at L'Hôtel Étoile, Paris</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white p-8 rounded-3xl shadow-sm border border-stone-200 flex flex-col justify-between">
+            <div>
+              <div class="flex text-amber-400 mb-4">
+                <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+              </div>
+              <p class="text-slate-700 italic text-sm leading-relaxed mb-6">
+                "Zermatt's Grand Alpine Chalet exceeded all expectations. Heated boots, fireplace crackling, and hot cider after a day skiing the Matterhorn glaciers. Absolute pure bliss."
+              </p>
+            </div>
+            <div class="flex items-center gap-3 pt-4 border-t border-stone-100">
+              <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&q=80" alt="Guest" class="w-10 h-10 rounded-full object-cover" />
+              <div>
+                <h4 class="font-bold text-sm text-slate-900">Maximilian Kraus</h4>
+                <p class="text-xs text-slate-400">Stayed at Grand Alpine Chalet, Zermatt</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+    <!-- ================= ABOUT US & LEADERSHIP SECTION ================= -->
+    <section id="about-us-section" class="py-24 bg-white border-b border-stone-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Header -->
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 text-amber-800 border border-amber-200/80 text-xs font-bold uppercase tracking-widest mb-3">
+            <i data-lucide="compass" class="w-3.5 h-3.5 text-amber-700"></i> Our Story & Leadership
+          </span>
+          <h2 class="font-serif-luxury text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 tracking-tight">
+            Crafting Unforgettable Memories in Rare Havens
+          </h2>
+          <p class="text-slate-600 text-base mt-4 leading-relaxed">
+            Founded with an uncompromising passion for artful architecture, serene nature, and world-class hospitality, AURA curates intimate sanctuaries where every detail is tailored to perfection.
+          </p>
+        </div>
+
+        <!-- Two Column Founder & Pillars Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          <!-- Left: Founder Spotlight Card (7 cols) -->
+          <div class="lg:col-span-7 bg-stone-50 rounded-3xl p-8 sm:p-10 border border-stone-200/80 shadow-md relative overflow-hidden">
+            <!-- Subtle Gold Glow -->
+            <div class="absolute -top-20 -right-20 w-64 h-64 bg-amber-200/30 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="flex flex-col sm:flex-row gap-8 items-center sm:items-start relative z-10">
+              
+              <!-- Photo with Gold Ring & Quick Change Button -->
+              <div class="flex flex-col items-center flex-shrink-0">
+                <div class="relative group">
+                  <div class="w-44 h-44 sm:w-52 sm:h-52 rounded-3xl overflow-hidden shadow-2xl border-4 border-white ring-2 ring-amber-300/60 bg-stone-200">
+                    <img 
+                      id="founder-photo-img" 
+                      src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80" 
+                      alt="Founder & CEO Photo" 
+                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
+                  <!-- Camera Quick Upload Floating Badge -->
+                  <button 
+                    type="button" 
+                    id="trigger-quick-photo-btn" 
+                    class="absolute bottom-2 right-2 p-2.5 rounded-full bg-slate-900 hover:bg-slate-800 text-amber-300 shadow-lg border-2 border-white transition-all transform hover:scale-110" 
+                    title="Upload Your Photo"
+                  >
+                    <i data-lucide="camera" class="w-4 h-4"></i>
+                  </button>
+                  <input type="file" id="quick-photo-file-input" accept="image/*" class="hidden" />
+                </div>
+                <span class="text-[10px] text-slate-400 mt-2 font-medium">Click camera to upload photo</span>
+              </div>
+
+              <!-- Founder Info & Bio -->
+              <div class="flex-1 text-center sm:text-left">
+                <div class="inline-block px-2.5 py-0.5 rounded-md bg-amber-100/70 text-amber-900 text-[11px] font-bold tracking-wider uppercase mb-2">
+                  Leadership Spotlight
+                </div>
+                <h3 id="founder-name-display" class="font-serif-luxury text-2xl sm:text-3xl font-bold text-slate-900 mb-1">
+                  Sattu
+                </h3>
+                <p id="founder-role-display" class="text-xs font-bold text-amber-800 uppercase tracking-widest mb-4">
+                  Founder & Chief Executive Officer
+                </p>
+                <div class="w-12 h-0.5 bg-amber-400 mb-4 mx-auto sm:mx-0"></div>
+                <p id="founder-bio-display" class="text-slate-600 text-sm leading-relaxed mb-6 italic">
+                  "We built AURA for travelers who understand that true luxury isn't about excess—it's about stillness, privacy, and impeccable service that anticipates your every wish before it's spoken."
+                </p>
+
+                <div class="flex flex-wrap items-center justify-center sm:justify-start gap-3">
+                  <button 
+                    type="button" 
+                    id="open-edit-founder-modal-btn" 
+                    class="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 text-xs font-bold transition-all shadow hover:shadow-md flex items-center gap-1.5"
+                  >
+                    <i data-lucide="user-check" class="w-4 h-4"></i>
+                    <span>Customize Name & Photo</span>
+                  </button>
+                  <a 
+                    href="#stays-section" 
+                    class="px-4 py-2.5 rounded-xl border border-stone-300 hover:border-slate-800 text-slate-700 text-xs font-semibold hover:bg-white transition-colors"
+                  >
+                    Explore Sanctuaries
+                  </a>
+                </div>
+
+              </div>
+
+            </div>
+
+            <!-- Stats Bar -->
+            <div class="mt-8 pt-6 border-t border-stone-200/80 grid grid-cols-3 gap-4 text-center">
+              <div>
+                <span class="block text-xl sm:text-2xl font-bold text-slate-900">120+</span>
+                <span class="text-[11px] text-slate-500 font-medium uppercase tracking-wider">Sanctuaries Audited</span>
+              </div>
+              <div>
+                <span class="block text-xl sm:text-2xl font-bold text-slate-900">35+</span>
+                <span class="text-[11px] text-slate-500 font-medium uppercase tracking-wider">Countries Covered</span>
+              </div>
+              <div>
+                <span class="block text-xl sm:text-2xl font-bold text-amber-800">99.8%</span>
+                <span class="text-[11px] text-slate-500 font-medium uppercase tracking-wider">Guest Satisfaction</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right: Our Values & Pillars (5 cols) -->
+          <div class="lg:col-span-5 space-y-6">
+            <div class="p-6 rounded-2xl bg-white border border-stone-200 shadow-sm flex gap-4">
+              <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-800 flex items-center justify-center flex-shrink-0">
+                <i data-lucide="shield-check" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-slate-900 text-base mb-1">Uncompromising Privacy</h4>
+                <p class="text-xs text-slate-500 leading-relaxed">Each property features secluded private access, dedicated butler teams, and intimate settings away from crowded tourist hubs.</p>
+              </div>
+            </div>
+
+            <div class="p-6 rounded-2xl bg-white border border-stone-200 shadow-sm flex gap-4">
+              <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-800 flex items-center justify-center flex-shrink-0">
+                <i data-lucide="gem" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-slate-900 text-base mb-1">Bespoke Heritage Design</h4>
+                <p class="text-xs text-slate-500 leading-relaxed">From centuries-old Kyoto cedar ryokans to Parisian Haussmann suites, we curate authentic architecture with cutting-edge comfort.</p>
+              </div>
+            </div>
+
+            <div class="p-6 rounded-2xl bg-white border border-stone-200 shadow-sm flex gap-4">
+              <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-800 flex items-center justify-center flex-shrink-0">
+                <i data-lucide="sparkles" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-slate-900 text-base mb-1">Tailored Experiences</h4>
+                <p class="text-xs text-slate-500 leading-relaxed">Private yacht charters on Lake Como, sunrise yoga above Bali ravines, and Michelin-starred dining under the stars.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= PROMO & NEWSLETTER BANNER ================= -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="relative overflow-hidden rounded-3xl bg-slate-900 text-white p-8 sm:p-14">
+        
+        <!-- Decorative Glow -->
+        <div class="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-amber-500/10 blur-3xl pointer-events-none"></div>
+
+        <div class="relative z-10 max-w-2xl">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400/20 text-amber-300 text-xs font-bold uppercase tracking-wider mb-4 border border-amber-400/30">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Private Club Access
+          </span>
+          <h2 class="font-serif-luxury text-3xl sm:text-4xl font-bold tracking-tight mb-4">
+            Receive Secret Escapes & Member-Only Upgrades
+          </h2>
+          <p class="text-stone-300 text-sm sm:text-base mb-8 leading-relaxed">
+            Join 85,000+ passionate luxury travelers receiving unlisted suite releases, private jet charter offers, and seasonal promotional rates.
+          </p>
+
+          <form id="newsletter-form" class="flex flex-col sm:flex-row gap-3 max-w-lg">
+            <input 
+              type="email" 
+              id="newsletter-email" 
+              placeholder="Enter your email address" 
+              required
+              class="px-5 py-3.5 rounded-full bg-white/10 border border-white/20 text-white placeholder-stone-400 text-sm outline-none focus:border-amber-400 flex-grow"
+            />
+            <button 
+              type="submit" 
+              class="px-7 py-3.5 rounded-full bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-sm transition-all shadow-lg hover:shadow-amber-400/20 whitespace-nowrap"
+            >
+              Join Aura Club
+            </button>
+          </form>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="bg-white border-t border-stone-200 text-slate-600 text-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+        
+        <!-- Col 1: Brand Info -->
+        <div class="space-y-4">
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-full bg-slate-900 flex items-center justify-center text-amber-300">
+              <i data-lucide="sparkles" class="w-4 h-4"></i>
+            </div>
+            <span class="font-brand text-xl tracking-[0.2em] font-bold text-slate-900">AURA</span>
+          </div>
+          <p class="text-xs text-slate-500 leading-relaxed">
+            The world's leading portfolio of verified luxury hotels, secluded ocean villas, and high-altitude alpine retreats.
+          </p>
+          <div class="flex items-center gap-3 text-slate-400">
+            <a href="#" class="p-2 rounded-full hover:bg-stone-100 hover:text-slate-800 transition-colors"><i data-lucide="instagram" class="w-4 h-4"></i></a>
+            <a href="#" class="p-2 rounded-full hover:bg-stone-100 hover:text-slate-800 transition-colors"><i data-lucide="twitter" class="w-4 h-4"></i></a>
+            <a href="#" class="p-2 rounded-full hover:bg-stone-100 hover:text-slate-800 transition-colors"><i data-lucide="facebook" class="w-4 h-4"></i></a>
+            <a href="#" class="p-2 rounded-full hover:bg-stone-100 hover:text-slate-800 transition-colors"><i data-lucide="linkedin" class="w-4 h-4"></i></a>
+          </div>
+        </div>
+
+        <!-- Col 2: Destinations -->
+        <div>
+          <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider mb-4">Top Destinations</h4>
+          <ul class="space-y-2.5 text-xs text-slate-500">
+            <li><a href="#" class="hover:text-amber-800 transition-colors">Paris, France</a></li>
+            <li><a href="#" class="hover:text-amber-800 transition-colors">Baa Atoll, Maldives</a></li>
+            <li><a href="#" class="hover:text-amber-800 transition-colors">Lake Como, Italy</a></li>
+            <li><a href="#" class="hover:text-amber-800 transition-colors">Zermatt, Switzerland</a></li>
+            <li><a href="#" class="hover:text-amber-800 transition-colors">Santorini, Greece</a></li>
+            <li><a href="#" class="hover:text-amber-800 transition-colors">Kyoto, Japan</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Company & Club -->
+        <div>
+          <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider mb-4">Company & Stays</h4>
+          <ul class="space-y-2.5 text-xs text-slate-500">
+            <li><a href="#" class="hover:text-amber-800 transition-colors">About Aura Sanctuary</a></li>
+            <li><a href="#" class="hover:text-amber-800 transition-colors">Quality Standard Audits</a></li>
+            <li><a href="#" class="hover:text-amber-800 transition-colors">Careers in Hospitality</a></li>
+            <li><a href="#" class="hover:text-amber-800 transition-colors">Affiliate & Travel Agents</a></li>
+            <li><a href="#" class="hover:text-amber-800 transition-colors">Press & Media Kit</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Support & Legal -->
+        <div>
+          <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider mb-4">Help & Transparency</h4>
+          <ul class="space-y-2.5 text-xs text-slate-500">
+            <li><a href="#" class="hover:text-amber-800 transition-colors">VIP Concierge Helpline</a></li>
+            <li><a href="#" class="hover:text-amber-800 transition-colors">Cancellation Terms</a></li>
+            <li><a href="#" class="hover:text-amber-800 transition-colors">Privacy Policy</a></li>
+            <li><a href="#" class="hover:text-amber-800 transition-colors">Terms of Service</a></li>
+            <li><a href="#" class="hover:text-amber-800 transition-colors">Security & Trust</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="pt-8 border-t border-stone-200 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-slate-400">
+        <p>© 2026 AURA Luxury Hotels & Resorts Inc. All rights reserved.</p>
+        <div class="flex items-center gap-6">
+          <span>Encrypted 256-bit SSL</span>
+          <span>Verified PCI-DSS Compliant</span>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ================= HOTEL QUICK VIEW / DETAIL MODAL ================= -->
+  <div id="hotel-detail-modal" class="modal-backdrop fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-950/70 backdrop-blur-sm overflow-y-auto">
+    <div class="modal-container bg-white rounded-3xl max-w-4xl w-full max-h-[92vh] overflow-y-auto shadow-2xl border border-stone-100 my-auto">
+      
+      <!-- Modal Header Bar -->
+      <div class="sticky top-0 z-20 bg-white/95 backdrop-blur-md px-6 py-4 border-b border-stone-200 flex justify-between items-center">
+        <div class="flex items-center gap-2">
+          <span id="modal-category-badge" class="px-2.5 py-1 rounded-full text-xs font-bold bg-amber-50 text-amber-800 border border-amber-200">
+            Boutique Hotel
+          </span>
+          <span id="modal-rating-badge" class="flex items-center gap-1 text-xs font-bold text-slate-800">
+            <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400 text-amber-400"></i>
+            <span id="modal-rating-score">4.94</span>
+          </span>
+        </div>
+        
+        <button id="close-detail-modal-btn" class="w-9 h-9 rounded-full bg-stone-100 hover:bg-stone-200 flex items-center justify-center text-slate-600 transition-colors">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="p-6 sm:p-8 space-y-8">
+        
+        <!-- Title & Location -->
+        <div>
+          <h2 id="modal-hotel-name" class="font-serif-luxury text-2xl sm:text-3xl font-bold text-slate-900 mb-1">
+            L'Hôtel Étoile & Spa
+          </h2>
+          <p id="modal-hotel-location" class="text-sm text-slate-500 flex items-center gap-1">
+            <i data-lucide="map-pin" class="w-4 h-4 text-amber-700"></i>
+            <span>8th Arrondissement, Paris, France</span>
+          </p>
+        </div>
+
+        <!-- Image Gallery Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div class="sm:col-span-2 rounded-2xl overflow-hidden h-72 sm:h-96 relative group">
+            <img id="modal-main-image" src="" alt="Hotel View" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+          </div>
+          <div class="grid grid-cols-2 sm:grid-cols-1 gap-3 h-72 sm:h-96">
+            <div class="rounded-2xl overflow-hidden h-[138px] sm:h-[186px] relative group">
+              <img id="modal-sub-image-1" src="" alt="Hotel Room" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+            </div>
+            <div class="rounded-2xl overflow-hidden h-[138px] sm:h-[186px] relative group">
+              <img id="modal-sub-image-2" src="" alt="Hotel Amenity" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Overview & Tagline -->
+        <div>
+          <h3 class="text-lg font-bold text-slate-900 mb-2">About This Property</h3>
+          <p id="modal-hotel-tagline" class="text-base text-slate-700 font-medium italic mb-3">
+            Haussmann elegance with rooftop views of the Eiffel Tower.
+          </p>
+          <p id="modal-hotel-description" class="text-sm text-slate-600 leading-relaxed">
+            Experience timeless luxury with handcrafted design, intuitive personalized service, and breathtaking panoramic views.
+          </p>
+        </div>
+
+        <!-- Room Types Selection -->
+        <div>
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg font-bold text-slate-900">Select Room / Suite</h3>
+            <span class="text-xs text-slate-500">Includes breakfast & spa access</span>
+          </div>
+          
+          <div id="modal-rooms-container" class="space-y-3">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+
+        <!-- Amenities Breakdown -->
+        <div>
+          <h3 class="text-lg font-bold text-slate-900 mb-4">Property Highlights & Amenities</h3>
+          <div id="modal-amenities-container" class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+
+        <!-- Verified Reviews Preview -->
+        <div>
+          <h3 class="text-lg font-bold text-slate-900 mb-4">Verified Guest Reviews</h3>
+          <div id="modal-reviews-container" class="space-y-3">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Modal Bottom Reserve Bar -->
+      <div class="sticky bottom-0 bg-white/95 backdrop-blur-md px-6 py-4 border-t border-stone-200 flex flex-col sm:flex-row justify-between items-center gap-4">
+        <div>
+          <div class="text-xs text-slate-500">Total for selected stay (<span id="modal-nights-count">3</span> nights):</div>
+          <div class="flex items-baseline gap-2">
+            <span id="modal-total-price" class="text-2xl font-bold text-slate-950">$1,140</span>
+            <span id="modal-nightly-rate" class="text-xs text-slate-500 font-medium">($380 / night)</span>
+          </div>
+        </div>
+
+        <button id="modal-proceed-booking-btn" class="w-full sm:w-auto px-8 py-3.5 rounded-full bg-slate-900 hover:bg-slate-800 text-amber-300 font-bold text-sm transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2">
+          <span>Reserve Selected Room</span>
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================= BOOKING CHECKOUT MODAL ================= -->
+  <div id="checkout-modal" class="modal-backdrop fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-950/75 backdrop-blur-sm overflow-y-auto">
+    <div class="modal-container bg-white rounded-3xl max-w-4xl w-full max-h-[94vh] overflow-y-auto shadow-2xl border border-stone-100 my-auto">
+      
+      <!-- Checkout Header -->
+      <div class="sticky top-0 z-20 bg-white/95 backdrop-blur-md px-6 py-4 border-b border-stone-200 flex justify-between items-center">
+        <div class="flex items-center gap-2">
+          <i data-lucide="shield-check" class="w-5 h-5 text-emerald-600"></i>
+          <h2 class="font-bold text-slate-900 text-lg">Secure Luxury Reservation</h2>
+        </div>
+        <button id="close-checkout-modal-btn" class="w-9 h-9 rounded-full bg-stone-100 hover:bg-stone-200 flex items-center justify-center text-slate-600 transition-colors">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="p-6 sm:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- Left: Guest & Payment Form (7 Cols) -->
+        <form id="checkout-form" class="lg:col-span-7 space-y-6">
+          
+          <!-- Guest Details -->
+          <div>
+            <h3 class="text-sm font-bold uppercase tracking-wider text-slate-500 mb-3 flex items-center gap-1.5">
+              <i data-lucide="user" class="w-4 h-4 text-amber-700"></i> Guest Details
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">First Name *</label>
+                <input type="text" id="guest-first-name" required placeholder="Elena" class="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 text-sm focus:border-amber-600 outline-none" />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">Last Name *</label>
+                <input type="text" id="guest-last-name" required placeholder="Rostova" class="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 text-sm focus:border-amber-600 outline-none" />
+              </div>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-3">
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">Email Confirmation *</label>
+                <input type="email" id="guest-email" required placeholder="elena@example.com" class="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 text-sm focus:border-amber-600 outline-none" />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">Phone Number *</label>
+                <input type="tel" id="guest-phone" required placeholder="+1 (555) 019-2834" class="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 text-sm focus:border-amber-600 outline-none" />
+              </div>
+            </div>
+
+            <div class="mt-3">
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Special Requests (Optional)</label>
+              <textarea id="guest-notes" rows="2" placeholder="High floor, quiet room, late arrival, dietary preferences..." class="w-full px-3.5 py-2 rounded-xl border border-stone-300 text-sm focus:border-amber-600 outline-none"></textarea>
+            </div>
+          </div>
+
+          <!-- Payment Details -->
+          <div class="pt-4 border-t border-stone-100">
+            <h3 class="text-sm font-bold uppercase tracking-wider text-slate-500 mb-3 flex items-center gap-1.5">
+              <i data-lucide="credit-card" class="w-4 h-4 text-amber-700"></i> Payment Details
+            </h3>
+
+            <div class="p-4 rounded-2xl bg-stone-50 border border-stone-200 space-y-3">
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">Cardholder Name *</label>
+                <input type="text" id="card-name" required placeholder="Elena Rostova" class="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 text-sm bg-white focus:border-amber-600 outline-none" />
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">Card Number *</label>
+                <div class="relative">
+                  <input type="text" id="card-number" required maxlength="19" placeholder="4242 •••• •••• 4242" class="w-full pl-3.5 pr-10 py-2.5 rounded-xl border border-stone-300 text-sm bg-white focus:border-amber-600 outline-none font-mono" />
+                  <i data-lucide="lock" class="w-4 h-4 text-slate-400 absolute right-3.5 top-3"></i>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-xs font-semibold text-slate-700 mb-1">Expiration (MM/YY) *</label>
+                  <input type="text" id="card-expiry" required maxlength="5" placeholder="12/28" class="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 text-sm bg-white focus:border-amber-600 outline-none font-mono" />
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold text-slate-700 mb-1">CVC / Security Code *</label>
+                  <input type="password" id="card-cvc" required maxlength="4" placeholder="893" class="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 text-sm bg-white focus:border-amber-600 outline-none font-mono" />
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-3 flex items-center gap-2 text-xs text-slate-500">
+              <i data-lucide="shield" class="w-4 h-4 text-emerald-600"></i>
+              <span>Simulated Sandbox Environment • No actual charge will be made</span>
+            </div>
+          </div>
+
+          <!-- Cancellation Policy Notice -->
+          <div class="text-xs text-slate-500 bg-stone-100 p-3.5 rounded-xl">
+            <strong>Free Cancellation:</strong> You may cancel this booking with a 100% full refund up to 48 hours prior to check-in.
+          </div>
+
+          <button 
+            type="submit" 
+            id="submit-booking-btn" 
+            class="w-full py-4 rounded-2xl bg-slate-900 hover:bg-slate-800 text-amber-300 font-bold text-base transition-all shadow-xl hover:shadow-2xl flex items-center justify-center gap-2"
+          >
+            <i data-lucide="lock" class="w-4 h-4"></i>
+            <span>Confirm & Complete Reservation</span>
+          </button>
+
+        </form>
+
+        <!-- Right: Order Summary (5 Cols) -->
+        <div class="lg:col-span-5 bg-stone-50 p-6 rounded-3xl border border-stone-200 h-fit space-y-5">
+          
+          <h3 class="font-bold text-slate-900 text-sm uppercase tracking-wider">Reservation Summary</h3>
+
+          <!-- Hotel Brief -->
+          <div class="flex items-center gap-3 pb-4 border-b border-stone-200">
+            <img id="summary-hotel-img" src="" alt="Hotel" class="w-16 h-16 rounded-2xl object-cover" />
+            <div>
+              <h4 id="summary-hotel-name" class="font-bold text-slate-900 text-sm line-clamp-1">Hotel Name</h4>
+              <p id="summary-hotel-room" class="text-xs text-amber-800 font-medium line-clamp-1">Room Name</p>
+              <p id="summary-hotel-location" class="text-xs text-slate-500">Location</p>
+            </div>
+          </div>
+
+          <!-- Stay Dates & Guests -->
+          <div class="space-y-2 text-xs text-slate-600 pb-4 border-b border-stone-200">
+            <div class="flex justify-between">
+              <span class="text-slate-400">Dates:</span>
+              <span id="summary-dates" class="font-semibold text-slate-800">Oct 17, 2026 - Oct 20, 2026</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-400">Duration:</span>
+              <span id="summary-nights" class="font-semibold text-slate-800">3 Nights</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-400">Guests:</span>
+              <span id="summary-guests" class="font-semibold text-slate-800">2 Adults</span>
+            </div>
+          </div>
+
+          <!-- Promo Code Input -->
+          <div class="pb-4 border-b border-stone-200">
+            <label class="block text-xs font-semibold text-slate-700 mb-1.5">Have a Promo Code?</label>
+            <div class="flex gap-2">
+              <input 
+                type="text" 
+                id="promo-input" 
+                placeholder="WELCOME10" 
+                class="flex-1 px-3 py-2 rounded-xl border border-stone-300 text-xs uppercase font-mono tracking-wider focus:border-amber-600 outline-none"
+              />
+              <button 
+                type="button" 
+                id="apply-promo-btn" 
+                class="px-4 py-2 rounded-xl bg-slate-800 text-white text-xs font-semibold hover:bg-slate-700 transition-colors"
+              >
+                Apply
+              </button>
+            </div>
+            <p id="promo-feedback" class="text-[11px] mt-1.5 hidden"></p>
+          </div>
+
+          <!-- Price Breakdown -->
+          <div class="space-y-2 text-xs text-slate-600">
+            <div class="flex justify-between">
+              <span id="summary-calc-label">Nightly Rate x Nights</span>
+              <span id="summary-base-price" class="font-semibold text-slate-800">$1,140</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Occupancy Tax (12%)</span>
+              <span id="summary-tax" class="font-semibold text-slate-800">$136.80</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Resort & Concierge Fee</span>
+              <span id="summary-resort-fee" class="font-semibold text-slate-800">$25.00</span>
+            </div>
+            <div id="summary-discount-row" class="flex justify-between text-emerald-600 font-semibold hidden">
+              <span>Promo Discount</span>
+              <span id="summary-discount">-$0.00</span>
+            </div>
+          </div>
+
+          <!-- Total Due -->
+          <div class="pt-4 border-t border-stone-300 flex justify-between items-baseline">
+            <div>
+              <div class="text-sm font-bold text-slate-900">Total Price</div>
+              <div class="text-[11px] text-slate-400">All taxes & fees included</div>
+            </div>
+            <span id="summary-grand-total" class="text-2xl font-black text-slate-950">$1,301.80</span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================= BOOKING SUCCESS / CONFIRMATION MODAL ================= -->
+  <div id="confirmation-modal" class="modal-backdrop fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-950/80 backdrop-blur-sm overflow-y-auto">
+    <div class="modal-container bg-white rounded-3xl max-w-xl w-full p-8 shadow-2xl border border-stone-100 my-auto text-center" id="booking-receipt-printable">
+      
+      <!-- Success Icon -->
+      <div class="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto mb-5 shadow-inner">
+        <i data-lucide="check" class="w-8 h-8 stroke-[3]"></i>
+      </div>
+
+      <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-amber-50 text-amber-800 border border-amber-200 text-xs font-bold uppercase tracking-wider mb-2">
+        Reservation Confirmed
+      </span>
+
+      <h2 class="font-serif-luxury text-2xl sm:text-3xl font-bold text-slate-900 mb-2">
+        We Look Forward to Welcoming You
+      </h2>
+      <p class="text-slate-500 text-sm mb-6">
+        A confirmation email and digital key itinerary have been sent to your inbox.
+      </p>
+
+      <!-- Booking Receipt Card -->
+      <div class="bg-stone-50 rounded-2xl p-5 border border-stone-200 text-left text-xs space-y-3 mb-6">
+        <div class="flex justify-between items-center pb-3 border-b border-stone-200">
+          <span class="text-slate-400 font-medium">Booking Reference</span>
+          <span id="receipt-ref-id" class="font-mono font-bold text-slate-900 text-sm">#AUR-83921</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-500">Sanctuary:</span>
+          <span id="receipt-hotel-name" class="font-bold text-slate-900">Hotel Name</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-500">Reserved Suite:</span>
+          <span id="receipt-room-name" class="font-bold text-slate-800">Suite Name</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-500">Dates:</span>
+          <span id="receipt-dates" class="font-semibold text-slate-800">Dates</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-500">Primary Guest:</span>
+          <span id="receipt-guest-name" class="font-semibold text-slate-800">Guest Name</span>
+        </div>
+        <div class="flex justify-between pt-2 border-t border-stone-200 text-slate-900 font-bold text-sm">
+          <span>Amount Paid:</span>
+          <span id="receipt-total-paid" class="text-emerald-700">$1,301.80</span>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="flex flex-col sm:flex-row gap-3">
+        <button id="print-receipt-btn" class="flex-1 py-3 px-4 rounded-xl border border-stone-300 text-slate-700 font-semibold text-xs hover:bg-stone-50 flex items-center justify-center gap-1.5 transition-colors">
+          <i data-lucide="printer" class="w-4 h-4"></i> Print Voucher
+        </button>
+        <button id="view-in-bookings-btn" class="flex-1 py-3 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 font-semibold text-xs transition-colors flex items-center justify-center gap-1.5">
+          <i data-lucide="calendar" class="w-4 h-4"></i> View in My Bookings
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================= WISHLIST DRAWER ================= -->
+  <div id="wishlist-drawer" class="drawer-backdrop fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-sm">
+    <div class="drawer-content absolute top-0 right-0 bottom-0 w-full max-w-md bg-white shadow-2xl flex flex-col">
+      
+      <!-- Drawer Header -->
+      <div class="p-5 border-b border-stone-200 flex justify-between items-center bg-stone-50">
+        <div class="flex items-center gap-2">
+          <i data-lucide="heart" class="w-5 h-5 text-rose-500 fill-rose-500"></i>
+          <h3 class="font-bold text-slate-900">Saved Sanctuaries</h3>
+        </div>
+        <button id="close-wishlist-btn" class="w-8 h-8 rounded-full bg-white hover:bg-stone-200 flex items-center justify-center text-slate-500 transition-colors">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <!-- Drawer Items -->
+      <div id="wishlist-items-container" class="flex-1 overflow-y-auto p-5 space-y-4">
+        <!-- Populated dynamically -->
+      </div>
+
+      <!-- Drawer Footer -->
+      <div class="p-5 border-t border-stone-200 bg-stone-50">
+        <button id="clear-wishlist-btn" class="w-full py-2.5 rounded-xl border border-stone-300 text-slate-600 text-xs font-semibold hover:bg-white transition-colors">
+          Clear Wishlist
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================= MY BOOKINGS DRAWER ================= -->
+  <div id="bookings-drawer" class="drawer-backdrop fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-sm">
+    <div class="drawer-content absolute top-0 right-0 bottom-0 w-full max-w-lg bg-white shadow-2xl flex flex-col">
+      
+      <!-- Drawer Header -->
+      <div class="p-5 border-b border-stone-200 flex justify-between items-center bg-stone-50">
+        <div class="flex items-center gap-2">
+          <i data-lucide="calendar" class="w-5 h-5 text-amber-700"></i>
+          <h3 class="font-bold text-slate-900">My Reservations</h3>
+        </div>
+        <button id="close-bookings-btn" class="w-8 h-8 rounded-full bg-white hover:bg-stone-200 flex items-center justify-center text-slate-500 transition-colors">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <!-- Drawer Items -->
+      <div id="bookings-items-container" class="flex-1 overflow-y-auto p-5 space-y-4">
+        <!-- Populated dynamically -->
+      </div>
+
+      <!-- Drawer Footer -->
+      <div class="p-5 border-t border-stone-200 bg-stone-50 text-xs text-slate-500 text-center">
+        <span>Need modifications? Contact our 24/7 VIP Concierge directly.</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================= EDIT FOUNDER PROFILE MODAL ================= -->
+  <div id="edit-founder-modal" class="modal-backdrop fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-950/75 backdrop-blur-sm overflow-y-auto">
+    <div class="modal-container bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-stone-100 my-auto">
+      
+      <div class="flex justify-between items-center pb-4 border-b border-stone-200 mb-5">
+        <div class="flex items-center gap-2">
+          <i data-lucide="user" class="w-5 h-5 text-amber-700"></i>
+          <h3 class="font-bold text-slate-900 text-base">Customize Founder in About Us</h3>
+        </div>
+        <button id="close-edit-founder-modal-btn" class="w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 flex items-center justify-center text-slate-500 transition-colors">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <form id="edit-founder-form" class="space-y-4">
+        
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Your Full Name *</label>
+          <input type="text" id="founder-name-input" required placeholder="Enter your name" class="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 text-sm focus:border-amber-600 outline-none" />
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Title / Role</label>
+          <input type="text" id="founder-role-input" placeholder="Founder & Chief Executive Officer" class="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 text-sm focus:border-amber-600 outline-none" />
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Your Photo (Upload File or Enter Image URL)</label>
+          <div class="space-y-2">
+            <div class="flex items-center gap-3">
+              <input type="file" id="modal-photo-file-input" accept="image/*" class="text-xs text-slate-500 file:mr-2 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-stone-100 file:text-slate-700 hover:file:bg-stone-200 cursor-pointer" />
+            </div>
+            <div class="relative">
+              <span class="text-[11px] text-slate-400 block mb-1">Or paste image web link:</span>
+              <input type="url" id="founder-photo-url-input" placeholder="https://example.com/your-photo.jpg" class="w-full px-3.5 py-2 rounded-xl border border-stone-300 text-xs focus:border-amber-600 outline-none" />
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Personal Message / Quote</label>
+          <textarea id="founder-bio-input" rows="3" placeholder="A brief quote or message about your vision for AURA..." class="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 text-sm focus:border-amber-600 outline-none"></textarea>
+        </div>
+
+        <div class="pt-4 border-t border-stone-100 flex gap-3">
+          <button type="button" id="cancel-edit-founder-btn" class="flex-1 py-3 rounded-xl border border-stone-300 text-slate-700 text-xs font-semibold hover:bg-stone-50 transition-colors">
+            Cancel
+          </button>
+          <button type="submit" class="flex-1 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 text-xs font-bold transition-all shadow">
+            Save Profile
+          </button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+
+  <!-- ================= TOAST NOTIFICATION CONTAINER ================= -->
+  <div id="toast-container"></div>
+
+  <!-- Application Logic -->
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
